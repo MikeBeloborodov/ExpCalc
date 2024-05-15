@@ -56,6 +56,8 @@ function calculateExpFrame:GetFullExp()
 end
 
 function calculateExpFrame:GetMobsToLvl(expGain)
+	if expGain == 0 then return 0 end
+
 	local currExp = UnitXP("player")
 	local maxExp = UnitXPMax("player")
 	local diffExp = tonumber(maxExp) - tonumber(currExp)
@@ -67,12 +69,15 @@ end
 calculateExpFrame:SetScript("OnEvent",
 	function()
 		if UnitIsFriend("player", "mouseover") then return end
+		if UnitCreatureType("mouseover") == "Critter" then return end
 
 		local expGain = calculateExpFrame:GetFullExp()
 		local mobsToLvl = calculateExpFrame:GetMobsToLvl(expGain)
 
-		GameTooltip:AddLine("Exp gain: " .. expGain, 1.00, 0.95, 0.95, 1)
-		GameTooltip:AddLine("Mobs to lvl: " .. mobsToLvl,  1.00, 0.95, 0.95, 1)
+		GameTooltip:AddLine(expGain .. " XP", 1.00, 0.95, 0.95, 1)
+		if mobsToLvl ~= 0 then
+			GameTooltip:AddLine(mobsToLvl .. " mobs to lvl",  1.00, 0.95, 0.95, 1)
+		end
 		GameTooltip:Show()
 	end
 )
