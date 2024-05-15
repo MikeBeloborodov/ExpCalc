@@ -1,5 +1,5 @@
 ## Interface: 11200
 ## Title: Exp Calc
-## Notes: Calculate exp from mobs and how many mobs to next lvl.
+## Notes: Shows how much exp a mob gives and how many kills you need to next lvl.
 ## Author: https://github.com/MikeBeloborodov
 ExpCalc.lua
