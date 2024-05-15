@@ -9,3 +9,11 @@ Vanilla 1.12.1 addon for World of Warcraft that shows exp gain from mobs and cal
 3. Rename the folder "ExpCalc-main" to "ExpCalc"
 4. Copy "ExpCalc" into Wow-Directory\Interface\AddOns
 5. Restart Wow
+
+
+**Slash commands:**
+* **/expcalc** Prints help
+
+* **/expcalc on** Turns addon on.
+
+* **/expcalc off** Turns addon off.
