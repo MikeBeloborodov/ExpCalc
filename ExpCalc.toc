@@ -1,0 +1,5 @@
+## Interface: 11200
+## Title: Exp Calc
+## Notes: Calculate exp from mobs and how many mobs to next lvl.
+## Author: MikeBeloborodov
+ExpCalc.lua
