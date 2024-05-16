@@ -18,13 +18,22 @@ function calculateExpFrame:GetZD()
 	if charLvl <= 59 then return 16 end
 end
 
+function calculateExpFrame:IsMobGray(mobLvl)
+	local charLvl = tonumber(UnitLevel("player"))
+	
+	if charLvl < 6 then return false end
+	if charLvl < 50 then return mobLvl <= (charLvl - math.floor(charLvl / 10) - 5) end
+	if charLvl == 50 then return mobLvl <= 40 end
+	return mobLvl <= (charLvl - math.floor(charLvl / 10) - 1)
+end
+
 function calculateExpFrame:GetExp(mobLvl, isElite)
 	local charLvl = tonumber(UnitLevel("player"))
 	local baseExp = (charLvl * 5) + 45
-	local ZD = self.GetZD()
+	local ZD = self:GetZD()
 	local eliteBonus = isElite and 2 or 1
-		
-	if (charLvl - mobLvl) / ZD >= 1 then
+
+	if (charLvl - mobLvl) / ZD >= 1 or self:IsMobGray(mobLvl) then
 		return 0
 	end
 	
@@ -47,10 +56,10 @@ end
 function calculateExpFrame:GetFullExp()
 	local mobLvl = UnitLevel("mouseover")
 	local isElite = (UnitClassification("mouseover") == "elite") and true or false
-	local expGain = calculateExpFrame:GetExp(tonumber(mobLvl), isElite)
+	local expGain = self:GetExp(tonumber(mobLvl), isElite)
 
 	local restedExp = tonumber(GetXPExhaustion())
-	if restedExp then expGain = calculateExpFrame:GetRestedExp(expGain, restedExp) end
+	if restedExp then expGain = self:GetRestedExp(expGain, restedExp) end
 
 	return expGain
 end
